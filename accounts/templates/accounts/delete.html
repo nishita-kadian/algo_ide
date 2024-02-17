@@ -1,0 +1,12 @@
+{% extends 'accounts.main.hhtml' %}
+
+{% block content %}
+
+<p> Are you sure you want to delete your profile? </p>
+
+<form method="POST">
+
+    <a href="% url 'profile' ">Cancel</a>
+    <input types="submit" name="Confirm">
+</form>
+{% endblock %}
