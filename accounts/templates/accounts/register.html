@@ -1,0 +1,13 @@
+<h3> Register Page</h3>
+
+{% extends 'accounts/main.html' %}
+{% block content %}
+
+<form action="" method ="POST" >
+    {% csrf_token %}
+    {{form}}
+
+    <input type="submit" name="Create User">
+</form>
+
+{% endblock %}
