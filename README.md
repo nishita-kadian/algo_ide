@@ -36,8 +36,11 @@ Breaking down the tasks further:
 `docker run -p 8000:8000 algo_ide`
 
 ## Access the website [here](http://ec2-13-201-99-41.ap-south-1.compute.amazonaws.com:8000/login/)
+
 use the following login
+
 username: nk
+
 password: 123
 
 ## Shortcomings:
