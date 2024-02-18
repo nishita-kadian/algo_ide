@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
 from .models import *
-from .forms import UserForm
+from .forms import UserForm, EditorForm
 from .filters import SubmissionFilter
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import authenticate, login, logout
@@ -10,7 +10,15 @@ from django.contrib.auth.decorators import login_required
 # Create your views here.
 
 def home(request):
-    return render(request, 'accounts/dashboard.html')
+    if request.method == 'POST':
+        form = EditorForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('/')
+    else:
+        form = EditorForm()
+    context = {'form':form, 'snippets': Snippet.objects.all()}
+    return render(request, 'accounts/dashboard.html', context)
 
 @login_required(login_url='login')
 def profile(request, pk):
