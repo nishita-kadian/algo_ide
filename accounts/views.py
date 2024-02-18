@@ -1,39 +1,38 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from django.http import HttpResponse
 from .models import *
 from .forms import UserForm, EditorForm
 from .filters import SubmissionFilter
 from runner import Runner
-from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import authenticate, login, logout
-from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from django.views.decorators.csrf import csrf_exempt
-# Create your views here.
 
 def home(request):
+    return render(request, 'accounts/main.html')
+
+@login_required(login_url='login')
+def problem(request, pk):
     preloaded_text = None
     imports = None
     input_fetcher = None
     custom_test_case = None
     custom_test_case = request.POST.get('custom_text', None)
-    print(custom_test_case)
+    testcases = None
+
+    user = User.objects.get(id=pk)
+
     custom = False
     if custom_test_case != None and custom_test_case != '':
         custom = True
         with open('custom_testcases.txt', 'w') as file:
             file.write(custom_test_case)
-    # print(custom_test_case)
+  
     with open('preload_code.txt', 'r') as file:
         preloaded_text = file.readlines()
     with open('wrap_left.txt', 'r') as file:
         imports = file.readlines()
-    # if custom_test_case == None:
     with open('wrap_right.txt', 'r') as file:
         input_fetcher = file.readlines()
-    # else:
-        # with open('custom_wrap_right.txt', 'r') as file:
-        #     input_fetcher = file.readlines()
+    
     imports = ('').join(imports)
     input_fetcher = ('').join(input_fetcher)
     preloaded_text = ('').join(preloaded_text)
@@ -44,14 +43,31 @@ def home(request):
                 user_input = form.cleaned_data['text'].replace('\r', '')
                 user_input = ('\n').join([imports, user_input, input_fetcher])
                 file.write(user_input)
-            form.save()
-
+            
+            form.instance.user = user
+            form.instance.submission_language = 'python'
+            
             runner = Runner().run(custom)
-
-            # submission = Submission()
+            if custom:
+                testcases = [testcase[0] for testcase in Runner().read_custom_testcases()]
+            else:
+                testcases = [testcase[0] for testcase in Runner().read_testcases()]
+            
+            results_zip = []
+            for index, run in enumerate(runner):
+                results_zip.append([run[0], run[1], run[2], testcases[index]])
             context = {'form': form, 
                        'preloaded': form.cleaned_data['text'],
-                       'results': runner}
+                       'results_zip': results_zip
+                       }
+            statuses = Snippet.get_status()
+            status = statuses[0][0]
+            for index, result in enumerate(results_zip):
+                if result[2] == 'WRONG ANSWER' or result[2] == 'TIME LIMIT EXCEEDED':
+                    status = statuses[1][0]
+                    break
+            form.instance.status = status
+            form.save()
             return render(request, 'accounts/dashboard.html', context)
     form = EditorForm(initial={'text': preloaded_text})
     context = {'form':form, 'snippets': Snippet.objects.all()}
@@ -60,7 +76,7 @@ def home(request):
 @login_required(login_url='login')
 def profile(request, pk):
     user = User.objects.get(id=pk)
-    submissions = Submission.objects.filter(user=user)
+    submissions = Snippet.objects.filter(user=user)
     
     submissionStatusFilter = SubmissionFilter(request.GET, queryset=submissions)
     submissions = submissionStatusFilter.qs
@@ -101,6 +117,16 @@ def updateUser(request, pk):
             return redirect('/')
 
     return render(request, 'accounts/profile_form.html', context)
+
+@login_required(login_url='login')
+def viewSubmission(request, submission_id):
+    submission = Snippet.objects.get(pk=submission_id)
+    file_content = None
+    with open('snippets.py', 'r') as file:
+        file_content = file.read()
+
+    context = {'submission': submission, 'file_content': file_content}
+    return render(request, 'accounts/submission.html', context)
 
 # def registerPage(request):
 #     form = CreateUserForm()

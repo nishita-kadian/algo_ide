@@ -7,7 +7,7 @@
         /* CSS for dividing page into two halves */
         .container {
             display: flex;
-            justify-content: space-between;
+            /* justify-content: space-between; */
             width: 100%;
             height: 100vh; /* Adjust as needed */
         }
@@ -20,6 +20,10 @@
             margin: 0;
             padding: 0;
             font-family: Arial, sans-serif;
+        }
+        table, th, td {
+            border: 1px solid black;
+            border-collapse: collapse;
         }
     </style>
      <div class="container">
@@ -66,9 +70,28 @@
         <textarea name="custom_text" rows="5" cols="40"></textarea><br>
         <input type="submit">
     </form>
-
-    {{results}}
-    
+    <br>
+    <br>
+    <table>
+        <thead>
+            <tr>
+                <th> Testcase &nbsp;</th>
+                <th> Expected Output &nbsp;</th>
+                <th> Output &nbsp;</th>
+                <th> Status &nbsp;</th>
+            </tr>
+        </thead>
+    <tbody>
+        {% for user_result,correct_result, result, testcase in results_zip %}
+            <tr>    
+                <td> {{testcase}}</td>
+                <td>{{correct_result}}</td>
+                <td>{{user_result}} </td>
+                <td>{{result}}</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+    </table>
 
     </div>
 </body>

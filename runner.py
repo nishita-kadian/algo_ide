@@ -35,6 +35,8 @@ class Runner:
         else:
             testcases = self.read_testcases()
         results = []
+        user_results = []
+        correct_results = []
         for testcase in testcases:
             correct_result = our_solution().getConcatenation(nums=testcase[0])
             user_subprocess = Popen(["python", "snippets.py"], stdout=PIPE, stdin=PIPE, stderr=PIPE, text=True)
@@ -45,11 +47,15 @@ class Runner:
             
             time_to_run = time.time() - time_to_run
 
+            user_results.append(user_result)
+            correct_results.append(correct_result)
             if time_to_run > 5:
                 results.append('TIME LIMIT EXCEEDED') 
             elif processed == correct_result:
                 results.append('ACCEPTED')
             else:
                 results.append('WRONG ANSWER')
-        return results
+        # all_results.append((user_result, results))
+        zip_result = zip(user_results, correct_results, results)
+        return zip_result
         

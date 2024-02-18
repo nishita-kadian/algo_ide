@@ -1,7 +1,7 @@
 from typing import List
 class Solution:
     def getConcatenation(self, nums: List[int]) -> List[int]:
-        return nums+nums
+        pass
 array = input()
 input_array = list(map(int, array.split(' ')))
 

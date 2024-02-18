@@ -22,7 +22,7 @@
             <div class="card-body text-center">
               <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp" alt="avatar"
                 class="rounded-circle img-fluid" style="width: 150px;">
-              <h5 class="my-3">{{user.name}}</h5>
+              <h5 class="my-3">{{user.username}}</h5>
               <p class="text-muted mb-1">Full Stack Developer</p>
               <p class="text-muted mb-4">Bay Area, San Francisco, CA</p>
               <div class="d-flex justify-content-center mb-2">
@@ -199,7 +199,7 @@
 <h4> SUBMISSIONS </h4>
 {% for i in submissions %}
 <ul>  
-  <li>Status: {{i.status}}, Username: {{i.user}}, Date Submitted: {{i.date_submitted}}</li>
+  <li>Status: {{i.status}}, Username: {{i.user}}, Date Submitted: {{i.created_at}}, <a href="{% url 'view_submission' submission_id=i.id %}">View Submission</a></li>
 </ul>
 {% endfor %}
 

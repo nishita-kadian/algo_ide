@@ -1,0 +1,12 @@
+{% extends 'accounts/main.html' %}
+
+{% block content %}
+
+<h3>Your Solution</h3>
+
+<p><b>Status: {{submission.status}}</b></p>
+<p><b>Date submitted :</b>{{submission.created_at}}</p>
+
+<pre>{{ submission.text }}</pre>
+
+{% endblock %}
