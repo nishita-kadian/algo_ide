@@ -1,0 +1,5 @@
+array = input()
+input_array = list(map(int, array.split(' ')))
+
+solution = Solution()
+print(solution.getConcatenation(input_array))

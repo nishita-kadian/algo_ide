@@ -28,8 +28,8 @@ class EditorForm(ModelForm):
                 mode='python',  # try for example "python"
                 theme='twilight',  # try for example "twilight"
                 wordwrap=False,
-                width="500px",
-                height="300px",
+                width="780px",
+                height="400px",
                 minlines=None,
                 maxlines=None,
                 showprintmargin=True,
@@ -43,7 +43,8 @@ class EditorForm(ModelForm):
                 behaviours=True,  # To disable auto-append of quote when quotes are entered
             )
         }
-        exclude = ()
+        exclude = ('user',
+                   'submission_language', 'status',)
 
 # class CreateUserForm():
 #     password = forms.CharField(widget=forms.PasswordInput)

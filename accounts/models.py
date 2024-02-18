@@ -54,8 +54,7 @@ class User(AbstractBaseUser, PermissionsMixin):
         return self.username
 
 
-class Submission(models.Model):
-    
+class Snippet(models.Model):
     @staticmethod
     def get_status():
         STATUS = (
@@ -63,16 +62,16 @@ class Submission(models.Model):
             ('Failed', 'Failed'),
             )
         return STATUS
-    user = models.ForeignKey(User, null=True, on_delete = models.SET_NULL)
-    submission_id = models.IntegerField(null = True)
-    date_submitted = models.DateTimeField(auto_now_add = True, null = True)
-    submission_language = models.CharField(max_length = 20, null = True)
-    status = models.CharField(max_length=30, null = True, choices=get_status())
-
-
-class Snippet(models.Model):
+    
     text = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
-
+    user = models.ForeignKey(User, null=True, on_delete = models.CASCADE)
+    # submission_id = models.IntegerField(null = True)
+    # date_submitted = models.DateTimeField(auto_now_add = True, null = True)
+    submission_language = models.CharField(max_length = 20, null = True)
+    status = models.CharField(max_length=30, null = True, choices=get_status())
+    
     class Meta:
-        ordering = ('-created_at', )
+        ordering = ('-created_at', '-user',
+                     '-submission_language', '-status',)
+        
