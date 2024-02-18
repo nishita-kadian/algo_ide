@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'accounts.apps.AccountsConfig',
     'django_filters',
-
+    'django_codemirror6',
+    'django_ace',
 ]
 
 AUTH_USER_MODEL = 'accounts.User'
