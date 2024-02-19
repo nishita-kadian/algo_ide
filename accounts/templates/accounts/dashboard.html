@@ -4,28 +4,48 @@
 <html>
 <head>
     <style>
-        /* CSS for dividing page into two halves */
         .container {
             display: flex;
-            /* justify-content: space-between; */
             width: 100%;
-            height: 100vh; /* Adjust as needed */
+            height: 100vh;
         }
         .left-half, .right-half {
-            width: 90%;
+            width: 60%;
             padding: 20px;
         }
-        /* Additional styling */
         body {
             margin: 0;
             padding: 0;
             font-family: Arial, sans-serif;
         }
-        table, th, td {
-            border: 1px solid black;
+
+        table {
+            width: 100%;
             border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        th, td {
+            padding: 8px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #f2f2f2;
+            color: #333;
+            font-weight: bold;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        tr:hover {
+            background-color: #f2f2f2;
         }
     </style>
+    
      <div class="container">
         <div class="left-half">
             <h3>Concatenation of Array</h3>
@@ -67,7 +87,7 @@
         {{ form.as_p }}
         <h3>Custom test cases</h3>
         <p>Enter one space separated testcase at a time</p>
-        <textarea name="custom_text" rows="5" cols="40"></textarea><br>
+        <textarea name="custom_text" rows="2" cols="40"></textarea><br>
         <input type="submit">
     </form>
     <br>
@@ -87,13 +107,18 @@
                 <td> {{testcase}}</td>
                 <td>{{correct_result}}</td>
                 <td>{{user_result}} </td>
-                <td>{{result}}</td>
+                {%if result == 'ACCEPTED'%}
+                    <td style="color: green; font-weight: bold;">{{result}}</td>
+                {%else%}
+                    <td style="color: red; font-weight: bold;">{{result}}</td>
+                {%endif%}
             </tr>
         {% endfor %}
     </tbody>
     </table>
 
     </div>
+
 </body>
 </html>
 
