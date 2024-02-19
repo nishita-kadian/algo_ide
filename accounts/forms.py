@@ -28,7 +28,7 @@ class EditorForm(ModelForm):
                 mode='python',  # try for example "python"
                 theme='twilight',  # try for example "twilight"
                 wordwrap=False,
-                width="780px",
+                width="700px",
                 height="400px",
                 minlines=None,
                 maxlines=None,

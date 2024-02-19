@@ -1,3 +1,43 @@
 {% extends 'accounts/main.html' %}
 {% block content%}
+<style>
+.instructions {
+    background-color: #f8f9fa; /* Background color */
+    padding: 20px; /* Padding around the content */
+    border: 1px solid #ced4da; /* Border */
+    border-radius: 5px; /* Rounded corners */
+    margin-bottom: 20px; /* Margin to create space between elements */
+  }
+  
+  .instructions h2 {
+    color: #0e0b0b; /* Heading text color */
+    font-size: 24px; /* Heading font size */
+    margin-bottom: 10px; /* Bottom margin for spacing */
+  }
+  
+  .instructions p {
+    color: #0e0b0b; /* Paragraph text color */
+    font-size: 16px; /* Paragraph font size */
+    line-height: 1.5; /* Line height for readability */
+  }
+  
+  .instructions li {
+    color: #0e0b0b; /* list text color */
+    font-size: 16px; /* list font size */
+    line-height: 1.5; /* Line height for readability */
+   }
+
+</style>
+<div class="instructions">
+    <!-- <h1>Welcome to <a href="https://www.algouniversity.com/">AlgoUniversity</a></h1> -->
+    
+    <h2>How to Use the Web Application?</h2>
+    <ul>
+        <li>1. Please ensure that you are logged in before attempting to access the question.</li><br>
+        <li>2. Logging in allows the question to be displayed and enables your solutions to be saved to your account.</li><br>
+        <li>3. You can then view your saved solutions on the profile page.</li>
+    </ul>
+
+    <p>Thank you for using our platform!</p>
+</div>
 {% endblock %}
