@@ -37,11 +37,9 @@ Breaking down the tasks further:
 
 ## Access the website [here](http://ec2-13-201-99-41.ap-south-1.compute.amazonaws.com:8000/login/)
 
-use the following login
-
-username: nk
-
-password: 123
+Please use the following login for testing:
+- username: `nk`
+- password: `123`
 
 
 ## References:
