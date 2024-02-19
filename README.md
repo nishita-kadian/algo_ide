@@ -43,13 +43,6 @@ username: nk
 
 password: 123
 
-## Shortcomings:
-
-Due to lack of time, following are the shortcomings that I can think of from top of my head
-  - Beautification of frontend is major pain point in this project.
-  - If the code the user passes has compiliation error, the server crashes, instead it should have been handled gracefully. For this we have to leverage subprocess's error handling.
-  - Hiding unnecessary items in the navbar
-  - Editing homepage and making it informative and accessible for users
 
 ## References:
 ---------------
